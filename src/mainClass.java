@@ -4,6 +4,7 @@ public class mainClass {
  * MainClass est la Class qui contient la methode main pour Executer l'application
  */
     public static void main(String[] args) {
+
         new authClass();
     }
 }

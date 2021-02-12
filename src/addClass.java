@@ -21,28 +21,18 @@ import java.sql.Statement;
  */
 
 public class addClass  extends Frame {
-    Label Name;
-    Label Prenom;
-    Label email;
-    Label Numero;
-    Label ump;
-    Label esto;
-    Label author;
-    Label text;
-    Label instruction1;
-    Label instruction2;
-    TextField textData;
-    TextField nom;
-    TextField surname;
-    TextField adresse;
-    TextField phone;
-    Button show;
-    Button textAdd;
-    Label err,err2,success;
+    Label Name; Label Prenom; Label email; Label Numero; Label ump; Label err,err2,success;
+    Label esto; Label author; Label text; Label instruction1; Label instruction2;
+
+    TextField textData; TextField nom; TextField surname;
+    TextField adresse; TextField phone;
+
+    Button show; Button textAdd;
 
     public addClass() {
 
         super("Ajouter Contact");
+
         setSize(800, 400);setLayout(null);setVisible(true);setResizable(false);
         setBackground(Color.lightGray);
 
@@ -87,7 +77,6 @@ public class addClass  extends Frame {
         author = new Label("Made by Aymane Tchich", Label.CENTER);
         author.setBounds(250, 350, 300, 30);
 
-
         add(esto);add(ump);add(nom);add(Name);add(surname);add(Prenom);add(adresse);
         add(email);add(phone);add(Numero);add(textAdd);add(textData);add(text);
         add(show);add(author);add(instruction1);add(instruction2);
@@ -104,6 +93,7 @@ public class addClass  extends Frame {
                     Connection conn= DriverManager.getConnection(url,"hr","hr");
                     Statement st=conn.createStatement();
                     ResultSet rs = st.executeQuery("select * from contacts where nom='"+nom.getText()+"' and prenom='"+surname.getText()+"' and email='"+adresse.getText()+"' and numero_telephone='"+phone.getText()+"'");
+
                     if(rs.next()){
                         success.setVisible(false);
                         err = new Label("Information Contact existe deja");
@@ -117,8 +107,11 @@ public class addClass  extends Frame {
                         success = new Label("Ajout effectuer avec Success");
                         success.setForeground(Color.BLUE);
                         success.setBounds(200,330,300,30);
-                        add(success);}
+                        add(success);
+                    }
+
                 } catch (Exception et) {
+
                     success.setVisible(false);
                     err2 = new Label("Veuillez remplir tout les Champs");
                     err2.setForeground(Color.red);
@@ -143,16 +136,20 @@ public class addClass  extends Frame {
                         String ligne;
                         String [] mot;
                         int k=0;
+
                         while ((ligne = IN.readLine ())!= null){
                             mot = ligne.split (" ");
                             ResultSet rst = st.executeQuery("insert into contacts values('"+mot[0]+"','"+mot[1]+"','"+mot[2]+"','"+mot[3]+"')");
                         }
+
                         c.close();
                         success = new Label("Ajout effectuer avec Success");
                         success.setForeground(Color.BLUE);
                         success.setBounds(570,250,300,30);
                         add(success);
+
                 } catch (Exception et) {
+
                     success.setVisible(false);
                     err = new Label("Fichier introuvable");
                     err.setForeground(Color.red);

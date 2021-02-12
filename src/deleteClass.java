@@ -16,19 +16,18 @@ import java.sql.Statement;
  */
 
 public class deleteClass extends Frame {
-    Label Name;
-    Label ump;
-    Label esto;
-    Label author;
-    Label instruction1;
-    Label instruction2;
-    Label err;
-    Label success;
+
+    Label Name; Label ump; Label esto; Label author;
+    Label instruction1; Label instruction2; Label err; Label success;
+
     TextField nom;
+
     Button show;
+
     public deleteClass() {
 
         super("Supprimer Contact");
+
         setSize(500, 400);setLayout(null);setVisible(true);setResizable(false);
         setBackground(Color.lightGray);
 
@@ -62,24 +61,29 @@ public class deleteClass extends Frame {
         show.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 try{
+
                     String url="jdbc:oracle:thin:@localhost:1521:XE";
                     Connection conn= DriverManager.getConnection(url,"hr","hr");
                     Statement st=conn.createStatement();
                     ResultSet rs = st.executeQuery("select numero_telephone from contacts where numero_telephone='"+nom.getText()+"'");
 
                     if (rs.next()){
+
                         err.setVisible(false);
                         ResultSet rst = st.executeQuery("delete from contacts where numero_telephone='"+nom.getText()+"'");
                         success = new Label("Suppression effectuer avec Success");
                         success.setForeground(Color.BLUE);
                         success.setBounds(155,300,300,30);
                         add(success);
+
                     }else{
+
                         success.setVisible(false);
                         err=new Label("Contact introuvable");
                         err.setForeground(Color.RED);
                         err.setBounds(195,300,300,30);
                         add(err);
+
                     }
                 } catch (Exception et) {
                     et.printStackTrace();

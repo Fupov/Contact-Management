@@ -13,13 +13,9 @@ import java.awt.event.*;
 public class indexClass extends Frame{
 
     /*Declaration des Variables*/
-    Button ajouter;
-    Button supprimer;
-    Button modifier;
-    Button afficher;
-    Label ump;
-    Label esto;
-    Label author;
+    Label ump; Label esto; Label author;
+
+    Button ajouter; Button supprimer; Button modifier; Button afficher;
 
     /*Constructeur de la Classe*/
     public indexClass() {

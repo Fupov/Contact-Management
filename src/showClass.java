@@ -19,18 +19,18 @@ import java.sql.Statement;
  */
 
 public class showClass extends Frame {
-    Label Name;
-    Label ump;
-    Label esto;
-    Label author;
-    Label instruction1;
-    Label instruction2;
+
+    Label Name; Label ump; Label esto; Label author;
+    Label instruction1; Label instruction2; Label err; Label success;
+
     TextField nom;
+
     Button show;
-    Label err,success;
+
     public showClass() {
 
         super("Afficher Contact");
+
         setSize(500, 400);setLayout(null);setVisible(true);setResizable(false);
         setBackground(Color.lightGray);
 
@@ -67,21 +67,24 @@ public class showClass extends Frame {
                     String url="jdbc:oracle:thin:@localhost:1521:XE";
                     Connection conn= DriverManager.getConnection(url,"hr","hr");
                     Statement st=conn.createStatement();
-
                     ResultSet rs = st.executeQuery("select nom from contacts where nom='"+nom.getText()+"'");
+
                     if(rs.next()){
+
                         err.setVisible(false);
                         ResultSet tsc = st.executeQuery("select * from contacts where nom='"+nom.getText()+"'");
-
                         File nomFicher= new File("afficherContacts.txt");
                         FileWriter fw = new FileWriter(nomFicher);
+
                         while(tsc.next()){
+
                             String nomRequest = tsc.getString("nom");
                             String prenomRequest = tsc.getString("prenom");
                             String emailRequest = tsc.getString("email");
                             String numeroRequest = tsc.getString("numero_telephone");
                             fw.write(nomRequest); fw.write(" "+prenomRequest);fw.write(" "+emailRequest);fw.write(" "+numeroRequest+"\n");
                         }
+
                         fw.close();
                         success = new Label("Informations exportés avec Success");
                         success.setForeground(Color.BLUE);
@@ -91,6 +94,7 @@ public class showClass extends Frame {
                         pb.start();
 
                     }else{
+
                         success.setVisible(false);
                         err=new Label("Contact introuvable");
                         err.setForeground(Color.RED);

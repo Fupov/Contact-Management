@@ -16,25 +16,18 @@ import java.sql.Statement;
  */
 
 public class modifyClass extends Frame{
-    Label nameRequest;
-    Label Name;
-    Label Prenom;
-    Label email;
-    Label Numero;
-    Label ump;
-    Label esto;
-    Label author;
-    Label err,success;
-    TextField requestData;
-    TextField nom;
-    TextField surname;
-    TextField adresse;
-    TextField phone;
+    Label nameRequest; Label Name; Label Prenom; Label email; Label separator;
+    Label Numero; Label ump; Label esto; Label author;Label err;Label success;
+
+    TextField requestData; TextField nom; TextField surname;
+    TextField adresse; TextField phone;
+
     Button show;
-    Label separator;
+
     public modifyClass() {
 
         super("Modifier Contact");
+
         setSize(500, 500);setLayout(null);setVisible(true);setResizable(false);
         setBackground(Color.lightGray);
 
@@ -85,26 +78,32 @@ public class modifyClass extends Frame{
         show.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 try{
+
                     String url="jdbc:oracle:thin:@localhost:1521:XE";
                     Connection conn= DriverManager.getConnection(url,"hr","hr");
                     Statement st=conn.createStatement();
                     ResultSet rs = st.executeQuery("select numero_telephone from contacts where numero_telephone='"+requestData.getText()+"'");
 
                     if (rs.next()){
+
                         err.setVisible(false);
                         ResultSet rst = st.executeQuery("update contacts set nom='"+nom.getText()+"' ,prenom='"+surname.getText()+"' ,email='"+adresse.getText()+"' , numero_telephone='"+phone.getText()+"' where numero_telephone='"+requestData.getText()+"'");
                         success = new Label("Mise a jour avec Success");
                         success.setForeground(Color.BLUE);
                         success.setBounds(215,400,300,30);
                         add(success);
+
                     }else{
+
                         success.setVisible(false);
                         err=new Label("Contact introuvable");
                         err.setForeground(Color.RED);
                         err.setBounds(215,110,300,20);
                         add(err);
+
                     }
                 } catch (Exception et) {
+
                     success.setVisible(false);
                     err = new Label("Veuillez Remplir tour les Champs");
                     err.setForeground(Color.red);

@@ -10,17 +10,15 @@ import java.awt.event.*;
  */
 
 public class authClass extends Frame{
-    Label esto;
-    Label ump;
-    Label username;
-    Label password;
-    Label author;
+
+    Label esto; Label ump; Label username; Label password; Label author;
+    TextField user; TextField mdp;
     Button send;
-    TextField user;
-    TextField mdp;
 
     public authClass(){
+
         super("Autentification");
+
         setSize(500,400); setLayout(null); setVisible(true); setResizable(false);
         setBackground(Color.lightGray);
 
@@ -52,21 +50,26 @@ public class authClass extends Frame{
 
             public void mouseClicked(MouseEvent e) {
                 try{
+
                     String url="jdbc:oracle:thin:@localhost:1521:XE";
                     Connection conn= DriverManager.getConnection(url,"hr","hr");
                     Statement st=conn.createStatement();
 
                     ResultSet rs = st.executeQuery("select username,password from admin where username='"+user.getText()+"' and password='"+mdp.getText()+"'");
+
                     if(rs.next()){
+
                         new indexClass();
                         setVisible(false);
 
                     }else{
+
                         Label err=new Label("username or password incorrect");
                         err.setForeground(Color.RED);
                         err.setBounds(155,300,300,30);
                         add(err);
                     }
+
                 } catch (Exception et) {
                     et.printStackTrace();
                 }
